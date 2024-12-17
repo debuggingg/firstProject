@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Shop</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" th:href="@{/css/style.css}">
+  <link rel="icon" href="favicon.ico" th:href="@{/img/favicon.ico}">
+</head>
+<body>
+<!-- Header -->
+<div th:insert="fragments/header :: header"></div>
+
+<!-- Content -->
+<div id="content">
+  <h1>Welcome to Camera Shop!</h1>
+  <p>Main content goes here.</p>
+  <!-- Admin page link -->
+  <a th:href="@{/admin(workgroup='admin', work='manage_users')}">Go to Admin Page</a>
+</div>
+
+<!-- Footer -->
+
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

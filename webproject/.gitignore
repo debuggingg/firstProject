@@ -1,10 +1,10 @@
 HELP.md
 # Gradle-related ignore
-.gradle
+
 !gradle/wrapper/ # Include wrapper folder
-gradle/wrapper/caches/
-gradle/wrapper/daemon/
-gradle/wrapper/native/
+caches/
+daemon/
+native/
 # Build files
 build/
 !**/src/main/**/build/
@@ -46,7 +46,4 @@ out/
 
 ### VS Code ###
 .vscode/
-caches/
-daemon/
-caches/
-daemon/
+

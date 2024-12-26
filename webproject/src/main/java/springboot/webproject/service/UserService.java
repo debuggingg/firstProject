@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserService {
 
     UsersDTO createUser(UsersDTO user); // 회원가입
-    Optional<UsersDTO> login(String usersId, String usersPw); // 로
+    Optional<UsersDTO> login(String usersId, String usersPw); // 로그인
 
 
 }

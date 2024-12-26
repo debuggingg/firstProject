@@ -26,7 +26,7 @@ public class UsersController {
     @GetMapping("/create")
     public String showCreateUserForm(Model model) {
         model.addAttribute("user", new UsersDTO());
-        return "create_user"; // This maps to create_user.html
+        return "/view/login/create_user"; // This maps to create_user.html
     }
 
     // Handle form submission

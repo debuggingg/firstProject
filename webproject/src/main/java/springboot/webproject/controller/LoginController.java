@@ -23,7 +23,7 @@ public class LoginController {
     public String loginForm(Model model) {
         // View에 전달할 빈 UsersDTO 객체 생성
         model.addAttribute("loginUser", new UsersDTO());
-        return "view/login_form"; // 로그인 폼 페이지
+        return "view/login/login_form"; // 로그인 폼 페이지
     }
 
 //    @PostMapping("/login")
@@ -52,7 +52,7 @@ public String login(@ModelAttribute("user") UsersDTO usersDTO,
     } else {
         // 로그인 실패 시 에러 메시지 전달 및 로그인 페이지로 이동
         model.addAttribute("errorMessage", "Invalid username or password");
-        return "view/login_form";
+        return "view/login/login_form";
     }
 }
 

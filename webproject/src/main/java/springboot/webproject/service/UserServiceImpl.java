@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService{
     public Optional<UsersDTO> login(String usersId, String usersPw) {
         return usersRepository.findByUsersIdAndUsersPw(usersId, usersPw); // 로그인 처리
     }
+
+    @Override
+    public Optional<UsersDTO> loginId(String usersId) {
+        return usersRepository.findByUsersId(usersId);
+    }
 }

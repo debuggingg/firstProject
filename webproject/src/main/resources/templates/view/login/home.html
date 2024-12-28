@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+  <meta charset="UTF-8">
+
+</head>
+<body>
+<div th:fragment="header">
+  <div class="home-container">
+    <h1>Welcome, <span th:text="${user.usersId}">Guest</span>!</h1>
+  </div>
+</div>
+</body>
+</html>

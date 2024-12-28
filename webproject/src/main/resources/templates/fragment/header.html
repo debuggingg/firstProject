@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>website</title>
@@ -10,7 +10,19 @@
     <div class="top_header">
         <div class="inner_top">
             <ul class="list_top">
-                <li><a href="/login" th:href="@{/login}" class="link_top">로그인</a></li>
+
+                <ul class="list_top">
+                    <!-- 로그인하지 않은 사용자는 '로그인' 링크를 표시 -->
+                    <li sec:authorize="isAnonymous()">
+                        <a href="/login" th:href="@{/login}" class="link_top">로그인</a>
+                    </li>
+
+                    <!-- 로그인한 사용자는 '로그아웃' 링크를 표시 -->
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/logout" th:href="@{/logout}" class="link_top">로그아웃</a>
+                    </li>
+                </ul>
+<!--                <li><a href="/login" th:href="@{/login}" class="link_top">로그인</a></li>-->
 <!--                <li><a th:href="@{/login}" class="link_top">로그인</a></li>-->
 <!--                <li><a href="/users/create" th:href="@{/users/create}" class="link_top">회원가입</a></li>-->
                 <li><a th:href="@{/users/create}" class="link_top">회원가입</a></li>

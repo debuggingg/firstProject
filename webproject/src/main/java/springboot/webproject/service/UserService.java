@@ -13,7 +13,7 @@ public interface UserService {
 
     UsersDTO createUser(UsersDTO user); // 회원가입
     Optional<UsersDTO> login(String usersId, String usersPw); // 로그인
-
+    Optional<UsersDTO> loginId(String usersId);
 
 }
 

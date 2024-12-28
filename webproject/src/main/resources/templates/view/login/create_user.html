@@ -8,6 +8,7 @@
     <title>Create User</title>
 </head>
 <body>
+<div layout:fragment="content">
 <h1>Create User</h1>
 <form th:action="@{/users}" th:method="post">
     <label for="usersId">User ID:</label>
@@ -42,5 +43,6 @@
 
     <button type="submit">Create User</button>
 </form>
+</div>
 </body>
 </html>

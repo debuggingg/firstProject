@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import springboot.webproject.dto.UsersDTO;
 import springboot.webproject.service.UserService;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -25,36 +26,36 @@ public class LoginController {
         model.addAttribute("loginUser", new UsersDTO());
         return "view/login/login_form"; // 로그인 폼 페이지
     }
-
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute("loginUser") UsersDTO usersDTO, Model model) {
-//        Optional<UsersDTO> userOptional = userService.login(usersDTO.getUsersId(), usersDTO.getUsersPw());
-//
-//        if (userOptional.isPresent()) {
-//            UsersDTO user = userOptional.get();
-//            model.addAttribute("user", user); // 로그인 성공 시 사용자 정보 전달
-//            return "view/home"; // 홈 페이지로 이동
-//        } else {
-//            return "view/login_form"; // 로그인 실패 시 다시 로그인 페이지
-//        }
-//    }
-@PostMapping("/login")
-public String login(@ModelAttribute("user") UsersDTO usersDTO,
-                    Model model,
-                    HttpSession session) {
-    Optional<UsersDTO> userOptional = userService.login(usersDTO.getUsersId(), usersDTO.getUsersPw());
-
-    if (userOptional.isPresent()) {
-        UsersDTO user = userOptional.get();
-        // 로그인 성공 시 세션에 사용자 정보 저장
-        session.setAttribute("user", user);
-        return "view/home"; // 홈 페이지로 이동
-    } else {
-        // 로그인 실패 시 에러 메시지 전달 및 로그인 페이지로 이동
-        model.addAttribute("errorMessage", "Invalid username or password");
-        return "view/login/login_form";
+    @PostMapping("/login")
+    public String login(Principal principal, Model model) {
+        if (principal != null) {
+            // 인증된 사용자 정보 가져오기
+            model.addAttribute("user", principal.getName());
+            return "view/login/home"; // 홈 페이지로 이동
+        } else {
+            model.addAttribute("errorMessage", "Invalid username or password");
+            return "view/login/login_form";
+        }
     }
-}
+//
+//@PostMapping("/login")
+//public String login(@ModelAttribute("user") UsersDTO usersDTO,
+//                    Model model,
+//                    Principal principal) {
+//    Optional<UsersDTO> userOptional = userService.login(usersDTO.getUsersId(), usersDTO.getUsersPw());
+//
+//    if (userOptional.isPresent()) {
+//        UsersDTO user = userOptional.get();
+//        // 로그인 성공 시 세션에 사용자 정보 저장
+////        session.setAttribute("user", user);
+//        model.addAttribute("user", principal.getName());
+//        return "view/login/home"; // 홈 페이지로 이동
+//    } else {
+//        // 로그인 실패 시 에러 메시지 전달 및 로그인 페이지로 이동
+//        model.addAttribute("errorMessage", "Invalid username or password");
+//        return "view/login/login_form";
+//    }
+//}
 
     @GetMapping("/logout")// 세션 지워서 로그아웃 하기
     public String logout(HttpSession session) {

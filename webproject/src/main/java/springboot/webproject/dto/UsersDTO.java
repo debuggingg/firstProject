@@ -3,6 +3,8 @@ package springboot.webproject.dto;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 /*
  CREATE TABLE USERS (
     USERS_NO NUMBER CONSTRAINT USERS_NO_PK PRIMARY KEY,
@@ -51,6 +53,16 @@ public class UsersDTO {
     private String usersSigndate;
     private String usersLastLogin;
     private int usersStatus;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "users_no"),
+            inverseJoinColumns = @JoinColumn(name = "role_id") // 수정된 컬럼 이름에 맞춤
+    )
+
+    private List<Role> roles;
+
 
     public UsersDTO() {
         // TODO Auto-generated constructor stub
@@ -129,8 +141,13 @@ public class UsersDTO {
         this.usersStatus = usersStatus;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
 
-
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
 /*
 CREATE TABLE USERS (

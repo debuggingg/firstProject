@@ -27,7 +27,7 @@ public class NoticeController {
 //        model.addAttribute("notices",notices);
 //        return "view/notice/notice_list";
 //    }
-@GetMapping("/notices")
+@GetMapping("/user/notices")
 public String getNotices(
         @RequestParam(name = "page", defaultValue = "1") int page,
         @RequestParam(name = "size", defaultValue = "10") int size,

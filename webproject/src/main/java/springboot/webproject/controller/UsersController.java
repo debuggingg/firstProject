@@ -36,10 +36,12 @@ public class UsersController {
     // Handle form submission
     @PostMapping
     public ModelAndView createUser(@ModelAttribute UsersDTO user) {
+
         String encodedPassword  = passwordEncoder.encode(user.getUsersPw());
         user.setUsersPw(encodedPassword);  // 암호화된 비밀번호 설정
         userService.createUser(user); // Save the user using the service
-        System.out.println(userService);
+
         return new ModelAndView("redirect:/users/create?success=true");
+
     }
 }

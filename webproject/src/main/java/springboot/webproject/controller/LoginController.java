@@ -26,17 +26,18 @@ public class LoginController {
         model.addAttribute("loginUser", new UsersDTO());
         return "view/login/login_form"; // 로그인 폼 페이지
     }
-    @PostMapping("/login")
-    public String login(Principal principal, Model model) {
-        if (principal != null) {
-            // 인증된 사용자 정보 가져오기
-            model.addAttribute("user", principal.getName());
-            return "view/login/home"; // 홈 페이지로 이동
-        } else {
-            model.addAttribute("errorMessage", "Invalid username or password");
-            return "view/login/login_form";
-        }
-    }
+//
+//    @PostMapping("/login")
+//    public String login(Principal principal, Model model) {
+//        if (principal != null) {
+//            // 인증된 사용자 정보 가져오기
+//            model.addAttribute("user", principal.getName());
+//            return "view/login/home"; // 홈 페이지로 이동
+//        } else {
+//            model.addAttribute("errorMessage", "Invalid username or password");
+//            return "view/login/login_form";
+//        }
+//    }
 //
 //@PostMapping("/login")
 //public String login(@ModelAttribute("user") UsersDTO usersDTO,

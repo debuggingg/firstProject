@@ -1,6 +1,7 @@
 package springboot.webproject.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import springboot.webproject.dto.UsersDTO;
 import springboot.webproject.service.UserService;
-
+import org.springframework.security.core.Authentication;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -21,12 +22,18 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String loginForm(Model model) {
-        // View에 전달할 빈 UsersDTO 객체 생성
+//    public String loginForm(Model model) {
+//        // View에 전달할 빈 UsersDTO 객체 생성
+    public String loginForm(Model model, Authentication authentication) {
+        // 이미 로그인된 사용자가 있을 경우 홈 페이지로 리다이렉트
+        if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken && authentication.isAuthenticated()) {
+            // 로그인된 사용자는 홈 페이지로 리다이렉트
+            return "view/login/home"; // 로그인된 경우 홈 페이지로 리다이렉트
+        }
         model.addAttribute("loginUser", new UsersDTO());
         return "view/login/login_form"; // 로그인 폼 페이지
     }
-//
+// security 를 사용하면 post 방식이 필요가 없기때문에 주석 처리
 //    @PostMapping("/login")
 //    public String login(Principal principal, Model model) {
 //        if (principal != null) {

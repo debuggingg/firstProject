@@ -16,6 +16,11 @@
                     <li sec:authorize="isAnonymous()">
                         <a href="/login" th:href="@{/login}" class="link_top">로그인</a>
                     </li>
+<!--                    role 을 설정 하는 링크-->
+                    <li sec:authorize="isAnonymous()">
+                        <a href="/roles" th:href="@{/roles}" class="link_top">roles</a>
+                    </li>
+
 
                     <!-- 로그인한 사용자는 '로그아웃' 링크를 표시 -->
                     <li sec:authorize="isAuthenticated()">
@@ -34,7 +39,7 @@
         <ul class="list_nav">
             <li><a href="/mypage" th:href="@{/mypage}" class="link_nav">메뉴1</a></li>
             <li><a href="/work_time" th:href="@{/work_time}" class="link_nav">메뉴2</a></li>
-            <li><a href="/notices" th:href="@{/notices}" class="link_nav">Notice</a></li>
+            <li><a href="user/notices" th:href="@{user/notices}" class="link_nav">Notice</a></li>
         </ul>
     </div>
 </div>

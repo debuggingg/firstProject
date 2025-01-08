@@ -24,8 +24,18 @@
             <tr th:each="notice : ${notices.content}">
                 <td th:text="${notice.noticeNo}"></td>
                 <td>
-                    <a th:href="@{/notice/detail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>
+                    <a th:if="${notice.noticeNo != null}"
+                       th:href="@{/user/notices/detail(noticeNo=${notice.noticeNo}, pageNum=${currentPage}, pageSize=${pageSize})}"
+                       th:text="${notice.noticeTitle}"></a>
+                    <span th:if="${notice.noticeNo == null}" th:text="Notice ID not available"></span>
                 </td>
+<!--                <td>-->
+<!--&lt;!&ndash;                    <a th:href="@{/user/notices/detail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a>&ndash;&gt;-->
+<!--                    <a th:if="${notice.noticeNo != null}"-->
+<!--                       th:href="@{/user/notices/detail(noticeNo=${notice.noticeNo})}"-->
+<!--                       th:text="${notice.noticeTitle}"></a>-->
+<!--                    <span th:if="${notice.noticeNo == null}" th:text="Notice ID not available"></span>-->
+<!--                </td>-->
                 <td th:text="${notice.noticeContent}"></td>
                 <td th:text="${notice.noticeDate}"></td>
             </tr>
@@ -35,18 +45,36 @@
         <!-- Pagination -->
 
         <div id="pagination">
-        <span th:if="${currentPage > 1}">
-            <a th:href="@{/notice(pageNum=${currentPage - 1}, pageSize=${pageSize})}">Previous</a>
-        </span>
+            <!-- 이전 페이지 -->
+            <span th:if="${currentPage > 1}">
+        <a th:href="@{/user/notices(pageNum=${currentPage - 1}, pageSize=${pageSize})}">Previous</a>
+    </span>
+
+            <!-- 페이지 번호 -->
             <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-            <a th:href="@{/notice(pageNum=${i}, pageSize=${pageSize})}"
-               th:text="${i}"
-               th:classappend="${i == currentPage} ? 'current' : ''"></a>
-        </span>
+        <a th:href="@{/user/notices(pageNum=${i}, pageSize=${pageSize})}"
+           th:text="${i}"
+           th:classappend="${i == currentPage} ? 'current' : ''"></a>
+    </span>
+
+            <!-- 다음 페이지 -->
             <span th:if="${currentPage < totalPages}">
-            <a th:href="@{/notice(pageNum=${currentPage + 1}, pageSize=${pageSize})}">Next</a>
-        </span>
+        <a th:href="@{/user/notices(pageNum=${currentPage + 1}, pageSize=${pageSize})}">Next</a>
+    </span>
         </div>
+<!--        <div id="pagination">-->
+<!--        <span th:if="${currentPage > 1}">-->
+<!--            <a th:href="@{/notice(pageNum=${currentPage - 1}, pageSize=${pageSize})}">Previous</a>-->
+<!--        </span>-->
+<!--            <span th:each="i : ${#numbers.sequence(1, totalPages)}">-->
+<!--            <a th:href="@{/notice(pageNum=${i}, pageSize=${pageSize})}"-->
+<!--               th:text="${i}"-->
+<!--               th:classappend="${i == currentPage} ? 'current' : ''"></a>-->
+<!--        </span>-->
+<!--            <span th:if="${currentPage < totalPages}">-->
+<!--            <a th:href="@{/notice(pageNum=${currentPage + 1}, pageSize=${pageSize})}">Next</a>-->
+<!--        </span>-->
+<!--        </div>-->
     </div>
 </div>
 </body>

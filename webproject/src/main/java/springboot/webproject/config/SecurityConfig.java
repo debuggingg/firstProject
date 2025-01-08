@@ -27,27 +27,23 @@ public class SecurityConfig {
         http
                 // 경로 접근 권한 설정
                 // 조심 해야하는부분은 만약 users/create 이렇게 만 넣으면 /users 를 호출 하는 페이지 작동 안함, 정확하게 표시
-                .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/", "/login", "/users/**", "/css/**", "/js/**", "/images/**","/notices/**").permitAll() // 인증 없이 접근 가능
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE_ADMIN만 접근 허용
-                        .requestMatchers("/user/**").hasRole("USER") // ROLE_USER만 접근 허용 - 로그인 된 유저
 
+                .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/", "/login", "/users/**", "/css/**", "/js/**", "/images/**","/roles/**").permitAll() // 인증 없이 접근 가능
+//                        .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE_ADMIN만 접근 허용
+//                        .requestMatchers("/user/**").hasRole("USER") // ROLE_USER만 접근 허용 - 로그인 된 유저
+                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated() // 나머지는 인증 필요
                 )
                 // 로그인 설정
-//                .formLogin((form) -> form
-//                        .loginPage("/login") // 로그인 폼 경로
-//                        .loginProcessingUrl("/login") // 로그인 처리 경로 (POST 요청)
-//                        .defaultSuccessUrl("/") // 로그인 성공 후 이동할 기본 페이지
-//                        .failureUrl("/login?error=true") // 로그인 실패 시 이동할 경로
-//                        .permitAll()
-//                )
+//
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .usernameParameter("usersId") // 사용자 ID 매핑
                         .passwordParameter("usersPw") // 비밀번호 매핑
-                        .defaultSuccessUrl("/notices")
+                        .defaultSuccessUrl("/")
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )

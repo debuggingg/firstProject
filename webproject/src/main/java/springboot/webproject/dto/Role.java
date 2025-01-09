@@ -43,3 +43,18 @@ public class Role {
         this.roleName = roleName;
     }
 }
+/*
+ CREATE TABLE user_roles (
+    users_no INT NOT NULL,
+    role_id INT NOT NULL,
+    PRIMARY KEY (users_no, role_id),
+    CONSTRAINT fk_users FOREIGN KEY (users_no) REFERENCES users (users_no) ON DELETE CASCADE,
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles (role_id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+*
+ CREATE TABLE roles (
+    role_id INT NOT NULL AUTO_INCREMENT,
+    role_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (role_id)
+) ENGINE=InnoDB;
+*  */

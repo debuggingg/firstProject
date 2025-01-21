@@ -11,10 +11,13 @@ QNA_CONTENT VARCHAR2(2000),
 QNA_STATUS NUMBER(1),
 QNA_DATE DATE DEFAULT SYSDATE);
 */
-//@Entity
+import jakarta.persistence.*;
+
+
+@Entity
 public class QnaDTO {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qnaNo;
     private int qnaUsersNo;	//로그인 사용자의 회원번호
     private String usersName; //users 테이블의 회원이름 저장하기 위한 필드 - 작성자

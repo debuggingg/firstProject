@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
 <head>
     <meta charset="UTF-8">
     <title>website</title>
@@ -22,10 +24,10 @@
                     </li>
 
 
-                    <!-- 로그인한 사용자는 '로그아웃' 링크를 표시 -->
-                    <li sec:authorize="isAuthenticated()">
-                        <a href="/logout" th:href="@{/logout}" class="link_top">로그아웃</a>
-                    </li>
+<!--                    &lt;!&ndash; 로그인한 사용자는 '로그아웃' 링크를 표시 &ndash;&gt;-->
+<!--                    <li sec:authorize="isAuthenticated()">-->
+<!--                        <a href="/logout" th:href="@{/logout}" class="link_top">로그아웃</a>-->
+<!--                    </li>-->
                 </ul>
 <!--                <li><a href="/login" th:href="@{/login}" class="link_top">로그인</a></li>-->
 <!--                <li><a th:href="@{/login}" class="link_top">로그인</a></li>-->
@@ -40,6 +42,9 @@
             <li><a href="/mypage" th:href="@{/mypage}" class="link_nav">메뉴1</a></li>
             <li><a href="/work_time" th:href="@{/work_time}" class="link_nav">메뉴2</a></li>
             <li><a href="user/notices" th:href="@{user/notices}" class="link_nav">Notice</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="admin/create" th:href="@{admin/create}" class="link_nav">NoticeWrite</a>
+            </li>
         </ul>
     </div>
 </div>

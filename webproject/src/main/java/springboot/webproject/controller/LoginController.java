@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import springboot.webproject.dto.UsersDTO;
 import springboot.webproject.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -24,11 +25,16 @@ public class LoginController {
     @GetMapping("/login")
 //    public String loginForm(Model model) {
 //        // View에 전달할 빈 UsersDTO 객체 생성
-    public String loginForm(Model model, Authentication authentication) {
+    public String loginForm(
+            @RequestParam(value = "message", required = false) String message, Model model, Authentication authentication) {
         // 이미 로그인된 사용자가 있을 경우 홈 페이지로 리다이렉트
         if (authentication != null && authentication instanceof UsernamePasswordAuthenticationToken && authentication.isAuthenticated()) {
             // 로그인된 사용자는 홈 페이지로 리다이렉트
             return "view/login/home"; // 로그인된 경우 홈 페이지로 리다이렉트
+        }
+        // 로그인 페이지로 이동할 때 메시지 추가
+        if (message != null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
         }
         model.addAttribute("loginUser", new UsersDTO());
         return "view/login/login_form"; // 로그인 폼 페이지
@@ -65,12 +71,18 @@ public class LoginController {
 //    }
 //}
 
-    @GetMapping("/logout")// 세션 지워서 로그아웃 하기
-    public String logout(HttpSession session) {
-        // 세션 무효화
-        session.invalidate();
-        return "redirect:/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
-    }
+
+
+//Security  가 알아서 로그아웃도 작성하여 만듬
+//    @GetMapping("/logout")// 세션 지워서 로그아웃 하기
+//    public String logout(HttpSession session) {
+//        // 세션 무효화
+//        session.invalidate();
+//        return "redirect:/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
+//    }
+
+
+
 
 //    @GetMapping("/home")
 //    public String home(HttpSession session, Model model) {

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,17 +25,18 @@ public class SecurityConfig {
     // Security Filter Chain 설정
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+      http
                 // 경로 접근 권한 설정
                 // 조심 해야하는부분은 만약 users/create 이렇게 만 넣으면 /users 를 호출 하는 페이지 작동 안함, 정확하게 표시
 
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/", "/login", "/users/**", "/css/**", "/js/**", "/images/**","/roles/**").permitAll() // 인증 없이 접근 가능
-//                        .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE_ADMIN만 접근 허용
-//                        .requestMatchers("/user/**").hasRole("USER") // ROLE_USER만 접근 허용 - 로그인 된 유저
-                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                        .anyRequest().authenticated() // 나머지는 인증 필요
+                                .requestMatchers("/", "/login", "/users/**", "/css/**", "/js/**", "/images/**", "/roles/**").permitAll() // 인증 없이 접근 가능
+                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // ROLE_USER만 접근 허용 - 로그인 된 유저
+                                .requestMatchers("/**").hasRole("ADMIN") // ROLE_ADMIN만 접근 허용
+//                        .requestMatchers("/**").hasAuthority("ROLE_ADMIN")
+//                        .requestMatchers("/user/**").hasAuthority("ROLE_USER")
+//                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                                .anyRequest().authenticated() // 나머지는 인증 필요
                 )
                 // 로그인 설정
 //
@@ -56,6 +58,7 @@ public class SecurityConfig {
                         .permitAll()
                 );
 
+        // 권한이 없을 경우 이동할 페이지 설정
         return http.build();
     }
 

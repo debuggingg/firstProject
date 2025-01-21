@@ -5,14 +5,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import springboot.webproject.dto.NoticeDTO;
+import springboot.webproject.dto.QnaDTO;
 
 import java.util.Optional;
-@Repository
-public interface NoticeRepository extends JpaRepository<NoticeDTO,Long> {
-    //noticeStatus가 1이고 noticeNo를 기준으로 내림차순 정렬된 데이터를 페이징 처리하도록 수정합니다.
-    Page<NoticeDTO> findAllByNoticeStatusAndNoticeNoLessThanEqualOrderByNoticeNoDesc(
-        int noticeStatus, int noticeNo, Pageable pageable);
 
-    //noticeNo 로 찾아서 notice 디테일 보기 
-    Optional<NoticeDTO> findByNoticeNo(int noticeNo);
+@Repository
+public interface QnaRepository extends JpaRepository<QnaDTO,Long> {
+    //noticeStatus가 1이고 noticeNo를 기준으로 내림차순 정렬된 데이터를 페이징 처리하도록 수정합니다.
+    Page<QnaDTO> findAllByQnaNoLessThanEqualOrderByQnaNoDesc(
+             int QnaNo, Pageable pageable);
+
+    //noticeNo 로 찾아서 notice 디테일 보기
+    Optional<QnaDTO> findByQnaNo(int qnaNo);
 }

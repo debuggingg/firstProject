@@ -17,7 +17,10 @@ import springboot.webproject.service.UserService;
 public class UsersController {
 
 
+    @Autowired
     private final UserService userService;
+
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     @Autowired

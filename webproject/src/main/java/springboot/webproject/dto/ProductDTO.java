@@ -1,160 +1,40 @@
 package springboot.webproject.dto;
 
 
+import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+import springboot.webproject.entity.ProductEntity;
 
-/*
-CREATE TABLE PRODUCT (
-   PROD_NO NUMBER CONSTRAINT PROD_NO_PK PRIMARY KEY,
-   PROD_TYPE NUMBER,
-   PROD_NAME VARCHAR2(50),
-   PROD_PRICE NUMBER,
-   PROD_AMOUNT NUMBER,
-   PROD_IMAGE1 VARCHAR2(1000),
-   PROD_IMAGE2 VARCHAR2(1000),
-   PROD_IMAGE3 VARCHAR2(1000),
-   PROD_IMAGE4 VARCHAR2(1000),
-   PROD_INFO VARCHAR2(2000),
-   PROD_IN_DATE DATE DEFAULT SYSDATE
-);
+import java.time.LocalDateTime;
+import java.util.List;
 
-CREATE SEQUENCE PRODUCT_SEQ;
 
-DESC product;
-
-SELECT * FROM product;
-
-COMMIT;
-
-*/
-//@Entity
+@Data
 public class ProductDTO {
-    //@Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int prodNo;
-    private int prodType;
-    private String prodName;
-    private int prodPrice;
-    private int prodAmount;
-    private String prodImage1;
-    private String prodImage2;
-    private String prodImage3;
-    private String prodImage4;
-    private String prodInfo;
-    private String prodInDate;
+    private Long prodNo; // 제품번호 (자동 생성)
+    private int prodType; // 제품 타입
+    private String prodName; // 제품명
+    private int prodPrice; // 가격
+    private int prodAmount; // 수량
+    private MultipartFile prodImage1; // 메인 이미지 파일
+    private MultipartFile prodImage2; // 서브 이미지 파일
+    private String prodImage1Name; // 메인 이미지 파일명
+    private String prodImage2Name; // 서브 이미지 파일명
+    private String prodInfo; // 제품 정보
+    private LocalDateTime prodRegdate; // 등록일시
 
-
-    public ProductDTO() {
-        // TODO Auto-generated constructor stub
+    // DTO → Entity 변환
+    public ProductEntity toEntity(String mainImageName, String subImageName) {
+        ProductEntity entity = new ProductEntity();
+        entity.setProdNo(prodNo);
+        entity.setProdType(prodType);
+        entity.setProdName(prodName);
+        entity.setProdPrice(prodPrice);
+        entity.setProdAmount(prodAmount);
+        entity.setProdImage1(mainImageName);
+        entity.setProdImage2(subImageName);
+        entity.setProdInfo(prodInfo);
+        entity.setProdRegdate(LocalDateTime.now()); // 현재 시간으로 등록일시 설정
+        return entity;
     }
-
-
-    public int getProdNo() {
-        return prodNo;
-    }
-
-
-    public void setProdNo(int prodNo) {
-        this.prodNo = prodNo;
-    }
-
-
-    public int getProdType() {
-        return prodType;
-    }
-
-
-    public void setProdType(int prodType) {
-        this.prodType = prodType;
-    }
-
-
-    public String getProdName() {
-        return prodName;
-    }
-
-
-    public void setProdName(String prodName) {
-        this.prodName = prodName;
-    }
-
-
-    public int getProdPrice() {
-        return prodPrice;
-    }
-
-
-    public void setProdPrice(int prodPrice) {
-        this.prodPrice = prodPrice;
-    }
-
-
-    public int getProdAmount() {
-        return prodAmount;
-    }
-
-
-    public void setProdAmount(int prodAmount) {
-        this.prodAmount = prodAmount;
-    }
-
-
-    public String getProdImage1() {
-        return prodImage1;
-    }
-
-
-    public void setProdImage1(String prodImage1) {
-        this.prodImage1 = prodImage1;
-    }
-
-
-    public String getProdImage2() {
-        return prodImage2;
-    }
-
-
-    public void setProdImage2(String prodImage2) {
-        this.prodImage2 = prodImage2;
-    }
-
-
-    public String getProdImage3() {
-        return prodImage3;
-    }
-
-
-    public void setProdImage3(String prodImage3) {
-        this.prodImage3 = prodImage3;
-    }
-
-
-    public String getProdImage4() {
-        return prodImage4;
-    }
-
-
-    public void setProdImage4(String prodImage4) {
-        this.prodImage4 = prodImage4;
-    }
-
-
-    public String getProdInfo() {
-        return prodInfo;
-    }
-
-
-    public void setProdInfo(String prodInfo) {
-        this.prodInfo = prodInfo;
-    }
-
-
-    public String getProdInDate() {
-        return prodInDate;
-    }
-
-
-    public void setProdInDate(String prodInDate) {
-        this.prodInDate = prodInDate;
-    }
-
 }

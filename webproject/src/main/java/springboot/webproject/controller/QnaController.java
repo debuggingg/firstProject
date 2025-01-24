@@ -39,7 +39,7 @@ public class QnaController {
         String username = authentication.getName();
 //        System.out.println("Authenticated username: " + username);
         UsersDTO user = userService.findUserByUsersId(username); // 사용자 정보 조회
-        System.out.println("Fetched user: " + user);
+//        System.out.println("Fetched user: " + user);
         // QnaDTO 객체를 생성하고 usersNo를 hidden으로 설정합니다.
         QnaDTO qnaDTO = new QnaDTO();
         qnaDTO.setQnaUsersNo(user.getUsersNo());  // 현재 로그인한 사용자의 usersNo 설정
@@ -57,7 +57,7 @@ public class QnaController {
         qna.setUsers(user); // qnaDTO에 users 설정
 
         qnaService.createQna(qna);
-        System.out.println("qnaUsersNo: " + qna.getQnaUsersNo());// Save the user using the service
+//        System.out.println("qnaUsersNo: " + qna.getQnaUsersNo());// Save the user using the service
         qna.setQnaDate(LocalDateTime.now());
         return new ModelAndView("redirect:/user/qna/create?success=true");
     }

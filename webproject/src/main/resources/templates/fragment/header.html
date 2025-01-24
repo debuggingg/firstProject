@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
 <head>
     <meta charset="UTF-8">
     <title>website</title>
@@ -19,7 +21,7 @@
                         <a href="/login" th:href="@{/login}" class="link_top">로그인</a>
                     </li>
 <!--                    role 을 설정 하는 링크-->
-                    <li sec:authorize="isAnonymous()">
+                    <li sec:authorize="isAuthenticated()" >
                         <a href="/roles" th:href="@{/roles}" class="link_top">roles</a>
                     </li>
 
@@ -43,11 +45,12 @@
             <li><a href="/#" th:href="@{/product/coldbrew/list}" class="link_nav">콜드브루</a></li>
             <li><a href="/work_manage" th:href="@{/work_manage}" class="link_nav">선물세트</a></li>
             <li><a href="/admin/product" th:href="@{/admin/product}" class="link_nav">상품관리</a></li>
-            <li><a href="user/notices" th:href="@{user/notices}" class="link_nav">Notice</a></li>
-            <li><a href="user/qna" th:href="@{user/qna}" class="link_nav">Qna</a></li>
+            <li><a href="user/notices" th:href="@{/user/notices}" class="link_nav">Notice</a></li>
+            <li><a href="user/qna" th:href="@{/user/qna}" class="link_nav">Qna</a></li>
 
             <li sec:authorize="hasRole('ROLE_ADMIN')">
-            <a href="admin/create" th:href="@{admin/create}" class="link_nav">NoticeWrite</a>
+                <a href="/#" th:href="@{/admin/create}" class="link_nav">NoticeWrite</a>
+            </li>
         </ul>
     </div>
 </div>

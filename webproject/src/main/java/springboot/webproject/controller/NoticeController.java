@@ -40,8 +40,9 @@ public String showCreateUserForm(Model model) {
 public ModelAndView createUser(@ModelAttribute NoticeDTO notice) {
 
 
-    noticeService.createNotice(notice); // Save the user using the service
-    notice.setNoticeDate(String.valueOf(LocalDateTime.now())); //
+    noticeService.createNotice(notice);
+    notice.setNoticeDate(LocalDateTime.now());// Save the user using the service
+//    notice.setNoticeDate(LocalDateTime.parse(String.valueOf(LocalDateTime.now()))); //
     return new ModelAndView("redirect:/admin/create?success=true");
 }
 

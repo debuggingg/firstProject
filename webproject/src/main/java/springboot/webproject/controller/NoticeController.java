@@ -46,7 +46,7 @@ public ModelAndView createUser(@ModelAttribute NoticeDTO notice) {
     return new ModelAndView("redirect:/admin/create?success=true");
 }
 
-@GetMapping("/user/notices")
+@GetMapping("/notices")
 public String getNotices(
         @RequestParam(name = "page", defaultValue = "1") int page,
         @RequestParam(name = "size", defaultValue = "10") int size,
@@ -63,7 +63,7 @@ public String getNotices(
     model.addAttribute("pageSize", size);
     return "view/notice/notice_list";
 }
-    @GetMapping("/user/notices/detail")
+    @GetMapping("/notices/detail")
     public String getNoticeDetail(@RequestParam("noticeNo") int noticeNo,
                                   @RequestParam("pageNum") int pageNum,
                                   @RequestParam("pageSize") int pageSize,

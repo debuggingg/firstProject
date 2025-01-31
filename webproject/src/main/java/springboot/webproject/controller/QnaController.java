@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import springboot.webproject.dto.NoticeDTO;
+import springboot.webproject.dto.QnaAnswer;
 import springboot.webproject.dto.QnaDTO;
 import springboot.webproject.dto.UsersDTO;
+import springboot.webproject.service.QnaAnswerService;
 import springboot.webproject.service.QnaService;
 import springboot.webproject.service.UserService;
 
@@ -26,10 +28,13 @@ public class QnaController {
     private final QnaService qnaService;
     @Autowired
     private final UserService userService;
+    @Autowired
+    private final QnaAnswerService qnaAnswerService;
 
-    public QnaController(QnaService qnaService, UserService userService) {
+    public QnaController(QnaService qnaService, UserService userService, QnaAnswerService qnaAnswerService) {
         this.qnaService = qnaService;
         this.userService = userService;
+        this.qnaAnswerService = qnaAnswerService;
     }
 
     @GetMapping("/qna/create")
@@ -59,7 +64,7 @@ public class QnaController {
         qnaService.createQna(qna);
 //        System.out.println("qnaUsersNo: " + qna.getQnaUsersNo());// Save the user using the service
         qna.setQnaDate(LocalDateTime.now());
-        return new ModelAndView("redirect:/user/qna/create?success=true");
+        return new ModelAndView("redirect:/user/qna");
     }
     @GetMapping("/qna")
     public String getQna(
@@ -73,10 +78,13 @@ public class QnaController {
 
         int currentPage = page;
         int totalPages = qna.getTotalPages();
+
+
         model.addAttribute("qnaList", qna);
         model.addAttribute("currentPage", currentPage);  // 현재 페이지
         model.addAttribute("totalPages", totalPages);  // 총 페이지 수
         model.addAttribute("pageSize", size);
+
         return "view/qna/qna_list";
     }
     @GetMapping("/qna/detail")
@@ -87,6 +95,9 @@ public class QnaController {
         Optional<QnaDTO> qna = qnaService.getQnaDetail(qnaNo);
         if(qna.isPresent()){
             model.addAttribute("qna", qna.get());
+           /* 답변을 보내주기위해 해당 값을 view 보내주는 값들을 여기에서 보내주게 코딩함*/
+            List<QnaAnswer> answers = qnaAnswerService.getAnswersByQna(qnaNo);
+            model.addAttribute("answers", answers);
             // 페이징 정보 전달
             model.addAttribute("currentPage", pageNum);
             model.addAttribute("pageSize", pageSize);

@@ -1,5 +1,10 @@
 package springboot.webproject.dto;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /*
 CREATE TABLE CARTLIST (
@@ -18,60 +23,36 @@ CART_USERS_ID          VARCHAR2(20)
 CART_PROD_NO           NUMBER
 CART_QUANTITY          NUMBER(20)
  */
-//@Entity
+@Entity
+@Table(name = "cartlist")//
+@Getter
+@Setter
 public class CartDTO {
-    //@Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartNo;
-    private String cartusersId;
-    private int cartproductNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CART_USERS_ID",referencedColumnName = "USERS_ID")
+    private UsersDTO users;
+    //    private String cartusersId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CART_PRODUCT_NO",referencedColumnName = "PROD_NO")
+    private ProductDTO productDTO;
+    //    private int cartproductNo;
     private int cartQuantity;
 
+    // 장바구니 상태 (0: 장바구니, 1: 주문완료)
+    private int status;
+
     public CartDTO() {
-        // TODO Auto-generated constructor stub
     }
 
-    public CartDTO(int cartNo, String cartusersId, int cartproductNo, int cartQuantity) {
-        super();
+    public CartDTO(int cartNo, UsersDTO users, ProductDTO productDTO, int cartQuantity, int status) {
         this.cartNo = cartNo;
-        this.cartusersId = cartusersId;
-        this.cartproductNo = cartproductNo;
+        this.users = users;
+        this.productDTO = productDTO;
         this.cartQuantity = cartQuantity;
+        this.status = status;
     }
-
-    public int getCartNo() {
-        return cartNo;
-    }
-
-    public void setCartNo(int cartNo) {
-        this.cartNo = cartNo;
-    }
-
-    public String getCartusersId() {
-        return cartusersId;
-    }
-
-    public void setCartusersId(String cartusersId) {
-        this.cartusersId = cartusersId;
-    }
-
-    public int getCartproductNo() {
-        return cartproductNo;
-    }
-
-    public void setCartproductNo(int cartproductNo) {
-        this.cartproductNo = cartproductNo;
-    }
-
-    public int getCartQuantity() {
-        return cartQuantity;
-    }
-
-    public void setCartQuantity(int cartQuantity) {
-        this.cartQuantity = cartQuantity;
-    }
-
-
-
-
 }

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PROD_NO")
     private Long prodNo; // 제품 번호
 
     @Column(length = 1)

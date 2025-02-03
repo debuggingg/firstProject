@@ -27,4 +27,36 @@ $(document).ready(function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const quantityInput = document.getElementById("quantity");
+    const cartQuantityInput = document.getElementById("cartQuantity"); // form 내부 hidden input
+    const totalPriceElement = document.querySelector(".txt_price"); // 총 가격 업데이트용
 
+    if (quantityInput) {
+        let price = parseInt(quantityInput.getAttribute("data-price")); // 가격 가져오기
+
+        window.changeQuantity = function (amount) {
+            let currentQuantity = parseInt(quantityInput.value);
+            let newQuantity = currentQuantity + amount;
+            if (newQuantity < 1) newQuantity = 1; // 최소 수량 제한
+
+            quantityInput.value = newQuantity;
+            cartQuantityInput.value = newQuantity; // form 내부 hidden input 값 업데이트
+            totalPriceElement.innerText = (price * newQuantity).toLocaleString() + "원";
+        };
+
+        // 사용자가 직접 입력했을 때도 cartQuantity 업데이트
+        quantityInput.addEventListener("input", function () {
+            let newQuantity = parseInt(quantityInput.value);
+            if (isNaN(newQuantity) || newQuantity < 1) newQuantity = 1;
+
+            cartQuantityInput.value = newQuantity; // form 내부 hidden input 값 업데이트
+            totalPriceElement.innerText = (price * newQuantity).toLocaleString() + "원";
+        });
+
+        // 장바구니 제출 시 수량 동기화
+        document.getElementById("cartForm").addEventListener("submit", function () {
+            cartQuantityInput.value = quantityInput.value; // form 제출 전에 hidden 값 최신화
+        });
+    }
+});

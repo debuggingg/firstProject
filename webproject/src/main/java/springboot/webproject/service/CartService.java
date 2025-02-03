@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CartService {
 
     // 장바구니에 상품 추가
-    void addProductToCart(UsersDTO usersId, int prodNo, int quantity) throws Exception;
+    void addProductToCart(UsersDTO usersId, long prodNo, int quantity) throws Exception;
 
     // 장바구니에서 상품 주문 완료 처리
     void completeOrder(int cartNo) throws Exception;

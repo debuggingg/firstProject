@@ -19,28 +19,7 @@ import java.util.Optional;
 예를 들어 username-> userId 으로 변경 하고싶을때
 UserDetailsService에서 역할(Role) 설정:
 */
-//@Service
-//@RequiredArgsConstructor
-//public class CustomUserDetailsService implements UserDetailsService {
-//    private final UserService userService; // UsersDTO 관련 서비스
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Optional<UsersDTO> userOptional = userService.loginId(username); // 사용자 조회
-//        if (userOptional.isEmpty()) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//
-//        UsersDTO user = userOptional.get();
-//
-//        // UserDetails 객체 생성 및 반환
-//        return User.builder()
-//                .username(user.getUsersId())
-//                .password(user.getUsersPw()) // Spring Security에서 비밀번호는 암호화 필요
-//                .roles("USER") // 사용자 권한 설정
-//                .build();
-//    }
-//}
+
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
@@ -89,3 +68,25 @@ public class CustomUserDetailsService implements UserDetailsService {
 //    }
 
 
+//@Service
+//@RequiredArgsConstructor
+//public class CustomUserDetailsService implements UserDetailsService {
+//    private final UserService userService; // UsersDTO 관련 서비스
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Optional<UsersDTO> userOptional = userService.loginId(username); // 사용자 조회
+//        if (userOptional.isEmpty()) {
+//            throw new UsernameNotFoundException("User not found");
+//        }
+//
+//        UsersDTO user = userOptional.get();
+//
+//        // UserDetails 객체 생성 및 반환
+//        return User.builder()
+//                .username(user.getUsersId())
+//                .password(user.getUsersPw()) // Spring Security에서 비밀번호는 암호화 필요
+//                .roles("USER") // 사용자 권한 설정
+//                .build();
+//    }
+//}

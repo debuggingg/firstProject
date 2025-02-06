@@ -69,10 +69,10 @@
 <!--</html>-->
 <div layout:fragment="content" class="qna-container">
     <h1>질문 상세</h1>
-
+<!--    <input type="hidden" id="qnaUsersNo" name="qnaUsersNo" th:value="${qna.qnaUsersNo}" />-->
     <div>
         <div class="qna-title" th:text="${qna.qnaTitle}"></div>
-        <div class="qna-content" th:text="${qna.qnaContent}"></div>
+        <div class="qna-content" th:text="${qna.qnaContent}">질문 내용 </div>
         <p class="qna-meta">작성일: <span th:text="${qna.qnaDate != null ? #temporals.format(qna.qnaDate, 'yyyy-MM-dd HH:mm:ss') : '날짜 없음'}"></span></p>
     </div>
 

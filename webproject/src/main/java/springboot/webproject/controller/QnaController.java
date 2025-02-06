@@ -71,7 +71,14 @@ public class QnaController {
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestParam(name = "qnaNo", defaultValue = "100000") int qnaNo,
-            Model model) {
+            Authentication authentication, // 로그인 사용자 정보
+            Model model
+
+            ) {
+
+        String username = authentication.getName();
+        UsersDTO user = userService.findUserByUsersId(username);
+        String loggedInUserId = user.getUsersId();  // usersNo 가져오기
         // PageRequest는 0부터 시작하므로 page-1로 설정
         Page<QnaDTO> qna = qnaService.getActiveQna(qnaNo, page, size);
         // 페이지네이션 정보 모델에 추가
@@ -79,11 +86,13 @@ public class QnaController {
         int currentPage = page;
         int totalPages = qna.getTotalPages();
 
-
+        System.out.println("현제 로그인 한사람의 로그인 번호 = "+ loggedInUserId);
         model.addAttribute("qnaList", qna);
         model.addAttribute("currentPage", currentPage);  // 현재 페이지
         model.addAttribute("totalPages", totalPages);  // 총 페이지 수
         model.addAttribute("pageSize", size);
+        model.addAttribute("loggedInUserNo", loggedInUserId); // 현재 로그인한 사용자 ID 추가
+
 
         return "view/qna/qna_list";
     }

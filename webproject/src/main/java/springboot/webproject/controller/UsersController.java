@@ -35,6 +35,10 @@ public class UsersController {
         model.addAttribute("user", new UsersDTO());
         return "/view/login/create_user"; // This maps to create_user.html
     }
+    @GetMapping("/test")
+    public String test(){
+        return "/view/admin/test";
+    }
 
     // Handle form submission
     @PostMapping

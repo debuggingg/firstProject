@@ -1,6 +1,15 @@
 @charset "utf-8";
 
+/* 로고 */
+.link_logo{display:block;width:200px;}
+
+/* 로그인 */
+.login-container, .create-user-container{width:500px;margin:0 auto;}
+
 /* 상품리스트 공통 */
+.cont_main .wrap_product{width:1024px;margin:50px auto 0;}
+.cont_main .wrap_product .tit_product{margin-bottom:40px;text-align:center;}
+/* 부트스트랩 적용으로 인해 삭제(25-01-31)
 .list_product:after{display:block;clear:both;content:'';}
 .list_product li{float:left;width:25%;height:350px;padding-bottom:25px;text-align:center;}
 .list_product li:first-child{margin-left:0}
@@ -12,14 +21,27 @@
 .list_product .wrap_img{display:block;overflow:hidden;width:244px;height:244px;overflow:hidden;}
 .list_product .img_product{transition-property:transform;transition-duration:0.2s;}
 .list_product .link_product:hover .img_product{transform:scale(1.1)}
-
-
+*/
+.card{transition: transform 0.2s, box-shadow 0.2s;}
+.card:hover{transform: scale(1.05);box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);}
+.list_product .name_product{overflow:hidden;display:block;max-height:44px;font-size:15px;color:#333;text-overflow:ellipsis;display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;word-break: break-word;}
 
 /* 상품관리 */
 .tbl_admin{width:100%;border-collapse:collapse;text-align:center;table-layout:fixed;}
-.tbl_admin th{padding:6px 0;border:1px solid #000;box-sizing:border-box;font-size:14px;background-color:#ccc;}
-.tbl_admin td{overflow:hidden;padding:6px 0;border:1px solid #000;box-sizing:border-box;}
-}
+.tbl_admin th{padding:6px 0;border:1px solid #eee;box-sizing:border-box;text-align:center;font-size:14px;background-color:#ccc;vertical-align:middle;}
+.tbl_admin td{overflow:hidden;padding:6px 0;border:1px solid #eee;box-sizing:border-box;font-size:12px;vertical-align:middle;}
+.tbl_admin td .btn{padding:4px;font-size:11px;}
+.add_product{display:none;border-bottom:1px solid #eee;}
+
+/* 상품상셰 */
+.img_product{width:100%;}
+
+/* 장바구니 */
+.tbl_cart .img_prod{width:100px;margin-right:20px;}
+.tbl_cart th, .tbl_cart td{position:relative;}
+.tbl_cart .form-check{position:absolute;top:50%;margin-top:-16px;}
+.tbl_cart td span{display:block;text-align:center;}
+
 
 /* 컨테이너 */
 .qna-container {
@@ -326,4 +348,86 @@
         font-size: 12px;
         padding: 6px;
     }
+}
+
+.welcome-message {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* 🟠 헤더 스타일 */
+.wrap_header {
+    background-color: #f5ebe0; /* 연한 크림 베이지 */
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔸 상단 네비게이션 */
+.list_top {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+/* 🌟 로그인 & 회원가입 링크 */
+.list_top a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #795548; /* 고급스러운 연한 브라운 */
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.list_top a:hover {
+    background: #d7ccc8; /* 더 부드러운 연한 브라운 */
+    color: #4e342e; /* 어두운 브라운 */
+}
+
+/* 😊 로그인 후 환영 메시지 */
+.welcome-message {
+    font-size: 16px;
+    font-weight: bold;
+    color: #a1887f; /* 따뜻한 연한 브라운 */
+}
+
+/* 🔘 로그아웃 버튼 */
+.logout-btn {
+    background-color: #a1887f; /* 부드러운 브라운 */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #6d4c41; /* 좀 더 깊은 브라운 */
+}
+
+/* 🛒 장바구니 스타일 */
+.link_top {
+    font-weight: bold;
+}
+
+.link_top:hover {
+    background: #d7ccc8; /* 연한 브라운 */
+    border-radius: 5px;
 }

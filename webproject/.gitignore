@@ -3,15 +3,16 @@ HELP.md
 
 !gradle/wrapper/ # Include wrapper folder
 caches/
-daemon/
-native/
+#일시적으로 daemon, native 제거 해놨다
+#daemon/
+#native/
 # Build files
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 # Ignore build.gradle
-build.gradle 임시로 지웠다. 나중에 다시 풀어줘도 된다
+build.gradle
 
 # Ignore application.properties
 # src/main/resources/application.properties 임시로 지웠다. 나중에 다시 풀어줘도 된다 

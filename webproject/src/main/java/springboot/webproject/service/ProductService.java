@@ -1,6 +1,8 @@
 package springboot.webproject.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import springboot.webproject.dto.ProductDTO;
+import springboot.webproject.entity.ProductEntity;
 
 import java.util.List;
 
@@ -11,4 +13,5 @@ public interface ProductService {
     List<ProductDTO> findProductsByType(int prodType); // 추가된 메소드
     ProductDTO findProductById(Long prodNo); // 상품 ID로 조회하는 메소드 추가
     void modifyProduct(ProductDTO productDTO); // 상품 수정
+    List<ProductDTO> getProductsByIds(List<Long> prodNos, List<Integer> quantities, List<Integer> totalPrices);
 }

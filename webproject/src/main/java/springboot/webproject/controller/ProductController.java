@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import springboot.webproject.dto.ProductDTO;
 import springboot.webproject.service.ProductService;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/product")
@@ -37,7 +37,12 @@ public class ProductController {
         if (product == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다.");
         }
+        // 가격 포맷팅
+        NumberFormat formatter = NumberFormat.getInstance(Locale.KOREA);
+        String formattedPrice = formatter.format(product.getProdPrice());
+
         model.addAttribute("product", product);
+        model.addAttribute("formattedPrice", formattedPrice); // 포맷된 가격 추가
         return "/view/product/coffeebean_view";
     }
 
@@ -53,6 +58,21 @@ public class ProductController {
         return "/view/product/coldbrew_list";
     }
 
+    //coldbrew view 페이지
+    @GetMapping("/coldbrew/view/{prodNo}")
+    public String coldbrewView(@PathVariable("prodNo") Long prodNo, Model model) {
+        ProductDTO product = productService.findProductById(prodNo);
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다.");
+        }
+        // 가격 포맷팅
+        NumberFormat formatter = NumberFormat.getInstance(Locale.KOREA);
+        String formattedPrice = formatter.format(product.getProdPrice());
+
+        model.addAttribute("product", product);
+        model.addAttribute("formattedPrice", formattedPrice); // 포맷된 가격 추가
+        return "/view/product/coldbrew_view";
+    }
 
 
 

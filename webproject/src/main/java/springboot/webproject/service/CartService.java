@@ -3,16 +3,22 @@ package springboot.webproject.service;
 import springboot.webproject.dto.CartDTO;
 import springboot.webproject.dto.UsersDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CartService {
-
-    // 장바구니에 상품 추가
+    List<CartDTO> getCartList(String usersId);
     void addProductToCart(UsersDTO usersId, long prodNo, int quantity) throws Exception;
-
-    // 장바구니에서 상품 주문 완료 처리
     void completeOrder(int cartNo) throws Exception;
+    boolean checkProductInCart(String userId, long prodNo);
+    void removeCartItem(Integer cartNo);
 
-    // 장바구니에서 주문 완료된 상품만 가져오기
-    Optional<CartDTO> getCompletedOrders(String userId);
+//    Optional<CartDTO> getCompletedOrders(String userId);
 }
+
+
+//public interface CartService {
+//    void addToCart(String usersId, int prodNo, int quantity);
+//    List<CartDTO> getCartList(String usersId);
+//    void removeCartItem(Long cartNo);
+//}

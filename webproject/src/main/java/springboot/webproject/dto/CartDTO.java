@@ -1,26 +1,30 @@
 package springboot.webproject.dto;
 
+
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import springboot.webproject.entity.ProductEntity;
 
 /*
- CREATE TABLE cartlist (
-    cart_no INT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- 기본키, 자동 증가
-    cart_users_id VARCHAR(20), -- 사용자 ID (외래키 가능)
-    cart_quantity INT, -- 수량
-    cart_prod_no INT, -- 상품 번호 (외래키 가능)
-    status INT NOT NULL DEFAULT 0, -- 상태 (기본값: 0)
-    FOREIGN KEY (cart_users_id) REFERENCES users(user_id), -- users 테이블의 user_id와 연결 (필요하면 추가)
-    FOREIGN KEY (cart_prod_no) REFERENCES product(prod_no) -- product 테이블의 prod_no와 연결 (필요하면 추가)
-);*/
+CREATE TABLE CARTLIST (
+   CART_NO NUMBER CONSTRAINT CART_NO_PK PRIMARY KEY,
+   CART_USERS_ID VARCHAR2(20),
+   CART_PROD_NO NUMBER,
+   CART_QUANTITY NUMBER(20),
+   CONSTRAINT CARTLIST_CART_PROD_NO_FK FOREIGN KEY (CART_PROD_NO) REFERENCES PRODUCT(PROD_NO),
+   CONSTRAINT CARTLIST_CART_USERS_ID_FK FOREIGN KEY (CART_USERS_ID) REFERENCES USERS(USERS_ID)
+);
 
+이름            널?       유형
+------------- -------- ------------
+CART_NO       NOT NULL NUMBER
+CART_USERS_ID          VARCHAR2(20)
+CART_PROD_NO           NUMBER
+CART_QUANTITY          NUMBER(20)
+ */
 
 @Entity
-@Table(name = "cartlist")//
+@Table(name = "cartlist")
 @Getter
 @Setter
 public class CartDTO {
@@ -29,13 +33,13 @@ public class CartDTO {
     private int cartNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CART_USERS_ID",referencedColumnName = "USERS_ID")
+    @JoinColumn(name = "CART_USERS_ID", referencedColumnName = "USERS_ID")
     private UsersDTO users;
-    //    private String cartusersId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CART_PROD_NO",referencedColumnName = "PROD_NO")
+    @JoinColumn(name = "CART_PROD_NO", referencedColumnName = "PROD_NO")
     private ProductEntity product;
-    //    private int cartproductNo;
+
     private int cartQuantity;
 
     // 장바구니 상태 (0: 장바구니, 1: 주문완료)
@@ -52,3 +56,29 @@ public class CartDTO {
         this.status = status;
     }
 }
+
+
+//@Entity
+//@Table(name="cartlist")
+//@Getter
+//@Setter
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Builder
+//public class CartDTO {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long cartNo;
+//
+//    @Column(name = "cart_users_id")
+//    private String cartusersId;
+//
+//    @Column(name = "cart_prod_no")
+//    private int cartproductNo;
+//
+//    @Column(name = "cart_quantity")
+//    private int cartQuantity;
+//
+//    @Transient
+//    private ProductDTO product;  // 장바구니에서 상품 정보 표시용
+//}

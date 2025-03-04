@@ -55,6 +55,7 @@ public String getNotices(
     // PageRequest는 0부터 시작하므로 page-1로 설정
     Page<NoticeDTO> notices = noticeService.getActiveNotices(noticeNo, page, size);
     // 페이지네이션 정보 모델에 추가
+    System.out.println("notice= "+notices);
     int currentPage = page;
     int totalPages = notices.getTotalPages();
     model.addAttribute("notices", notices);

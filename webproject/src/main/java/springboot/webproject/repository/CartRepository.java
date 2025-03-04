@@ -5,15 +5,20 @@ import org.springframework.stereotype.Repository;
 import springboot.webproject.dto.CartDTO;
 import springboot.webproject.dto.UsersDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CartRepository extends JpaRepository<CartDTO, Integer> {
-    // CartDTO를 cartNo로 찾기
     CartDTO findByCartNo(int cartNo);
-
-    // 특정 사용자(userId)와 특정 상품(productNo)에 해당하는 장바구니 항목 찾기
-    CartDTO findByUsers_UsersIdAndProduct_ProdNo(UsersDTO usersId, int prodNo);
-
-    Optional<CartDTO> findAllByUsers_UsersIdAndStatus(String userId, int i);
+    List<CartDTO> findByUsers_UsersId(String usersId); // 수정된 부분
+    CartDTO findByUsers_UsersIdAndProduct_ProdNo(String usersId, int prodNo);
+    Optional<List<CartDTO>> findAllByUsers_UsersIdAndStatus(String userId, int status);
 }
+
+
+//@Repository
+//public interface CartRepository extends JpaRepository<CartDTO, Long> {
+//    List<CartDTO> findByCartusersId(String cartusersId);
+//    CartDTO findByCartusersIdAndCartproductNo(String cartusersId, int cartproductNo);
+//}
